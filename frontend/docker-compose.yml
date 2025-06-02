@@ -1,0 +1,48 @@
+services:
+  # Service Frontend - Application Todo
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: todo-frontend:latest
+    container_name: todo-frontend-container
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NITRO_PORT=3000
+      - NITRO_HOST=0.0.0.0
+      # URL du backend pour l'intégration future
+      - NUXT_PUBLIC_API_BASE=http://backend:8080/api
+    # Attendre que le backend soit prêt (commenté pour le moment)
+    # depends_on:
+    #   - backend
+    networks:
+      - todo-network
+    # Volumes pour la persistance des données (si nécessaire)
+    # volumes:
+    #   - frontend-data:/app/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`localhost`)"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+      - "com.docker.compose.project=todo-app"
+      - "com.docker.compose.service=frontend"
+    healthcheck:
+      test: ["CMD", "sh", "-c", "nc -z localhost 3000 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+# Configuration du réseau
+networks:
+  todo-network:
+    driver: bridge
+    name: todo-network
+
+# Volumes pour la persistance (si nécessaire)
+# volumes:
+#   frontend-data:
+#     driver: local 
