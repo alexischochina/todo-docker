@@ -1,0 +1,70 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  min-height: 100vh;
+  color: $dark-color;
+  line-height: 1.6;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+  
+  @include mobile {
+    padding: $spacing-md;
+    align-items: flex-start;
+    padding-top: $spacing-2xl;
+  }
+}
+
+.app-container {
+  @include card;
+  max-width: 700px;
+  width: 100%;
+  @include fade-in-up;
+  padding: $spacing-2xl;
+  
+  @include mobile {
+    margin: 0;
+    border-radius: $border-radius-lg;
+    padding: $spacing-xl;
+  }
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: $spacing-2xl;
+  
+  h1 {
+    font-size: $font-size-3xl;
+    font-weight: 700;
+    background: $gradient-primary;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: $spacing-md;
+    
+    @include mobile {
+      font-size: $font-size-2xl;
+    }
+  }
+  
+  p {
+    color: $gray-medium;
+    font-size: $font-size-lg;
+    font-weight: 400;
+    margin-top: $spacing-sm;
+  }
+} 

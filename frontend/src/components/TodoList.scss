@@ -1,0 +1,89 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.todo-list {
+  width: 100%;
+}
+
+.todo-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-2xl;
+  
+  .spinner {
+    font-size: $font-size-2xl;
+    color: $primary-color;
+    animation: spin 1s linear infinite;
+    margin-bottom: $spacing-md;
+  }
+  
+  p {
+    color: $gray-medium;
+    font-size: $font-size-lg;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
+
+.todo-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-2xl;
+  text-align: center;
+  
+  svg {
+    font-size: $font-size-2xl;
+    color: $danger-color;
+    margin-bottom: $spacing-md;
+  }
+  
+  p {
+    color: $gray-dark;
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-lg;
+  }
+  
+  .retry-button {
+    @include button-primary;
+    padding: $spacing-sm $spacing-lg;
+  }
+}
+
+.todos-container {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.empty-state {
+  text-align: center;
+  padding: $spacing-2xl;
+  color: $gray-medium;
+  
+  h3 {
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-sm;
+    color: $gray-dark;
+  }
+  
+  p {
+    font-size: $font-size-md;
+    line-height: 1.6;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

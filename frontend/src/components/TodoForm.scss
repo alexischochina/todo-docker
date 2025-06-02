@@ -1,0 +1,62 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.todo-form {
+  margin-bottom: $spacing-2xl;
+  
+  .input-group {
+    display: flex;
+    gap: $spacing-md;
+    align-items: stretch;
+    
+    @include mobile {
+      flex-direction: column;
+      gap: $spacing-md;
+    }
+  }
+  
+  .todo-input {
+    @include input-base;
+    flex: 1;
+    font-size: $font-size-lg;
+    padding: $spacing-lg $spacing-md;
+    border-radius: $border-radius-xl;
+    min-height: 56px;
+    
+    @include mobile {
+      margin-bottom: 0;
+    }
+    
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    &::placeholder {
+      color: $gray-medium;
+      font-style: italic;
+    }
+  }
+  
+  .add-button {
+    @include button-primary;
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-lg;
+    font-weight: 600;
+    gap: $spacing-sm;
+    min-width: 140px;
+    min-height: 56px;
+    border-radius: $border-radius-xl;
+    
+    @include mobile {
+      width: 100%;
+      justify-content: center;
+      min-height: 50px;
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      transform: none !important;
+    }
+  }
+} 

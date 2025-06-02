@@ -17,7 +17,7 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     container_name: todo_backend
     env_file:
       - ./backend/.env.local
