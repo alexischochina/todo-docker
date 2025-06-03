@@ -3,41 +3,31 @@ version: '3.8'
 services:
   database:
     image: postgres:14-alpine
-    container_name: todo_db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: todo_app
     volumes:
-      - db_data:/var/lib/postgresql/data     # Persistance des données
+      - db_data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "5432:5432"   # Pour accès local si besoin (optionnel)
+      - "5432:5432"
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: dockerfile
-    container_name: todo_backend
+    image: docker.io/oayouub/todo-backend:latest
     env_file:
       - ./backend/.env.local
     ports:
       - "4000:4000"
     depends_on:
       - database
-    # volume si vous souhaitez dev local (si vous voulez monter le src en dev, mais en production ce n'est pas nécessaire)
-    # volumes:
-    #   - ./backend/src:/usr/src/app/src
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: todo_frontend
+    image: docker.io/oayouub/todo-frontend:latest
+    environment:
+      - REACT_APP_API_URL=http://backend:4000/api/todos
     ports:
       - "3000:80"
-    environment:
-      - REACT_APP_API_URL=http://localhost:4000/api/todos
     depends_on:
       - backend
 
